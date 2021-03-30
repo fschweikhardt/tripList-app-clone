@@ -18,21 +18,22 @@ export default class Login extends React.Component {
 
         const usernameOptions = {
             method: 'POST',
+            body: JSON.stringify(userLogin),
             headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${config.API_TOKEN}` 
             },
-            body: JSON.stringify(userLogin)
+            
         }
 
-        fetch(`${config.API_ENDPOINT}/api/login`, usernameOptions)
+        fetch(`http://localhost:8080/api/login`, usernameOptions)
             .then(res => {
                 if (!res.ok) {
                     return res.json().then(e => Promise.reject(e))
                 }
                 return res.json()
             })
-            .then( token => {
+            .then(token => {
                 const tokenValue = Object.values(token)
                 const headerToken = tokenValue.toString()
                 window.localStorage.setItem('Authorization', headerToken)
