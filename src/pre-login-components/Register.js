@@ -27,7 +27,7 @@ export default class Register extends React.Component{
             
         }
 
-        fetch(`http://localhost:8080/api/register`, options)
+        fetch(`${config.API_BASE_URL}/api/register`, options)
             .then(res => {
                 if (!res.ok) {
                     alert('Choose a different username')
@@ -36,7 +36,6 @@ export default class Register extends React.Component{
                 return res.json()
             })
             .then(res => {
-                console.log(res)
                 this.props.history.push('/login')
             })
             .catch(err => {

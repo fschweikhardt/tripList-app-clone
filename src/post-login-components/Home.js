@@ -34,7 +34,7 @@ export default class Home extends React.Component {
                 }
             }
 
-            fetch(`${config.API_ENDPOINT}/api/verifyId`, options)
+            fetch(`${config.API_BASE_URL}/api/verifyId`, options)
                 .then(res => {
                     if (!res.ok) {
                         return res.json().then(e => Promise.reject(e))
@@ -42,13 +42,14 @@ export default class Home extends React.Component {
                     return res.json()
                 })
                 .then(data => {
+                    console.log(data)
                     this.context.setUsername(data)
                  })
                 .catch(err => {
                     console.error({ err })
                 })
         
-            fetch(`${config.API_ENDPOINT}/api/verifyLists`, options)
+            fetch(`${config.API_BASE_URL}/api/verifyLists`, options)
                 .then(res => {
                     if (!res.ok) {
                         return res.json().then(e => Promise.reject(e))
@@ -56,13 +57,14 @@ export default class Home extends React.Component {
                     return res.json()
                 })
                 .then(data => {
+                    console.log(data)
                     this.context.setLists(data) 
                 })
                 .catch(err => {
                     console.error({ err })
                 })
 
-            fetch(`${config.API_ENDPOINT}/api/verifyItems`, options)
+            fetch(`${config.API_BASE_URL}/api/verifyItems`, options)
                 .then(res => {
                     if (!res.ok) {
                         return res.json().then(e => Promise.reject(e))
@@ -70,6 +72,7 @@ export default class Home extends React.Component {
                     return res.json()
                 })
                 .then(data => {
+                    console.log(data)
                     this.context.setItems(data) 
                     this.setState({
                         loggedIn: true
