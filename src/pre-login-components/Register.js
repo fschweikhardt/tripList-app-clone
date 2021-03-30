@@ -19,22 +19,25 @@ export default class Register extends React.Component{
 
         const options = {
             method: 'POST',
+            body: JSON.stringify(newUser),
             headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${config.API_TOKEN}` 
             },
-            body: JSON.stringify(newUser)
+            
         }
 
-        fetch(`${config.API_ENDPOINT}/api/register`, options)
+        fetch(`http://localhost:8080/api/register`, options)
             .then(res => {
                 if (!res.ok) {
                     alert('Choose a different username')
                     return res.json().then(e => Promise.reject(e))
-                } else {
-                this.props.history.push('/login')
+                } 
                 return res.json()
-                }
+            })
+            .then(res => {
+                console.log(res)
+                this.props.history.push('/login')
             })
             .catch(err => {
                 console.error({ err })
@@ -54,7 +57,10 @@ export default class Register extends React.Component{
                     width='100%'
                     height='auto'
                 />
-                <form onSubmit={this.handleSubmit} className='item form-container'>
+                <form 
+                    onSubmit={this.handleSubmit} 
+                    className='item form-container'
+                    >
                     <h2 style={{color: 'rgb(35,90,135)', fontWeight: 'bold'}}>
                         SIGN UP
                     </h2>
